@@ -131,7 +131,7 @@ class BalancedRandomForest(object):
         min_class = 0 if len(class_idx[0]) < len(class_idx[1]) else 1
         n_min_class = len(class_idx[min_class])
 
-        for i in xrange(self.n_estimators):
+        for i in range(self.n_estimators):
             # Take a bootstrap sample of the minority class
             samples_min = np.random.choice(class_idx[min_class],
                                            n_min_class,

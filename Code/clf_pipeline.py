@@ -11,10 +11,10 @@ from clf_assessment import (grid_search, cross_validation,
                             mean_decrease_impurity)
 
 # %% Load ground truth data
-print "loading data.."
+print("loading data..")
 classes = ['veg', 'non_veg']
-veg_pc = pd.read_csv('../Data/C_39CN1_veg.csv', delimiter=';', header=0)
-non_veg_pc = pd.read_csv('../Data/C_39CN1_nonveg.csv', delimiter=';', header=0)
+veg_pc = pd.read_csv('../Data/selected_areas/C_39CN1_veg_sel.csv', delimiter=';', header=0)
+non_veg_pc = pd.read_csv('../Data/selected_areas/C_39CN1_nonveg_sel.csv', delimiter=';', header=0)
 data = merge_dataframes({'veg': veg_pc, 'non_veg': non_veg_pc}, 'class')
 data.rename(columns={'//X': 'X'}, inplace=True)
 data.rename(columns=lambda x: x.replace(',', '_'), inplace=True)
@@ -39,7 +39,7 @@ gs_scores, param_grid = grid_search(data, features, 'class_cat', param_dict)
 cv_scores, conf_matrices = cross_validation(data, features, 'class_cat')
 
 # %% Load all data
-point_cloud = pd.read_csv("../Data/C_39CN1_ResearchArea_params.csv",
+point_cloud = pd.read_csv("../Data/selected_areas/ResearchArea_3_params.csv",
                           delimiter=',', header=0)
 
 
@@ -54,8 +54,8 @@ fi_scores = mean_decrease_impurity(clf, features)
 # %% Classify vegetation / non-vegetation
 classification = []
 parts = 8
-part = len(point_cloud)/parts
-for i in xrange(parts):
+part = int(len(point_cloud)/parts)
+for i in range(parts):
     if i == parts-1:
         temp_pc = point_cloud.loc[point_cloud.index[i*part:]]
     else:
@@ -75,5 +75,5 @@ point_cloud.loc[point_cloud['class'] == 1, 'veg_class'] = classification
 point_cloud['class'], _ = pd.factorize(point_cloud['veg_class'])
 
 # %% Save results
-point_cloud.to_csv('../Data/veg_classification.csv',
+point_cloud.to_csv('../Data/selected_areas/veg_classification.csv',
                    columns=['X', 'Y', 'Z', 'class'], index=False)

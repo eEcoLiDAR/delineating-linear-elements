@@ -99,7 +99,7 @@ class BoundingBox(object):
         """
         edges_count = len(self.hull)
         edge_angles = np.zeros(edges_count)
-        for i in xrange(edges_count):
+        for i in range(edges_count):
             edge_x = self.hull[i][1][0] - self.hull[i][0][0]
             edge_y = self.hull[i][1][1] - self.hull[i][0][1]
             edge_angles[i] = math.atan2(edge_y, edge_x)
@@ -824,9 +824,9 @@ def merge_objects(objects, max_dist, max_dir_dif,  max_c_dir_dif,
 
     # Calculate distances between all polygons
     distances = np.full((n_objects, n_objects), np.inf)
-    for i in xrange(n_objects):
+    for i in range(n_objects):
         poly1 = objects[i].shape
-        for j in xrange(i+1, n_objects):
+        for j in range(i+1, n_objects):
             poly2 = objects[j].shape
             dist = poly1.distance(poly2)
             distances[i, j] = dist
@@ -857,7 +857,7 @@ def merge_objects(objects, max_dist, max_dir_dif,  max_c_dir_dif,
                     objects[c[0]].elongatedness > min_elong and
                     objects[c[1]].elongatedness > min_elong and
                     c_dir_dif1 < max_c_dir_dif and c_dir_dif2 < max_c_dir_dif):
-                for k, v in to_merge.iteritems():
+                for k, v in to_merge.items():
                     if c[0] in v:
                         to_merge.setdefault(k, []).append(c[1])
                         break
@@ -869,7 +869,7 @@ def merge_objects(objects, max_dist, max_dir_dif,  max_c_dir_dif,
 
     # Create the new objects from the objects to be merged
     to_remove = []
-    for k, v in to_merge.iteritems():
+    for k, v in to_merge.items():
         merge_objects_idx = [k]
         merge_objects_idx.extend(v)
         merge_objects = [objects[i] for i in merge_objects_idx]

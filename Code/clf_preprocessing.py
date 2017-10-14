@@ -25,7 +25,7 @@ def merge_dataframes(dfs, key_field_name):
         The merged dataframe.
     """
     df = pd.DataFrame()
-    for k, v in dfs.iteritems():
+    for k, v in dfs.items():
         v[key_field_name] = k
         df = df.append(v)
     return df

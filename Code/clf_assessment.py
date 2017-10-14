@@ -51,7 +51,7 @@ def grid_search(df, features, class_column, param_dict, n_folds=3):
     n = 0
     n_total = n_params * n_folds
     for train_index, test_index in skf.split(df[features], df[class_column]):
-        for i in xrange(n_params):
+        for i in range(n_params):
             parameters = param_grid[i]
             train_data = df.iloc[train_index]
             test_data = df.iloc[test_index]
@@ -70,7 +70,7 @@ def grid_search(df, features, class_column, param_dict, n_folds=3):
             gs_scores.loc[i, 'gmean'] += gmean
 
             n += 1
-            print "Done %d of %d.." % (n, n_total)
+            print("Done %d of %d.." % (n, n_total))
 
     gs_scores['mcc'] /= n_folds
     gs_scores['roc_auc'] /= n_folds
@@ -137,7 +137,7 @@ def cross_validation(df, features, class_column, n_folds=10):
         confusion_matrices.append(df_confusion)
 
         i += 1
-        print "Done %d of %d.." % (i, n_folds)
+        print("Done %d of %d.." % (i, n_folds))
 
     cv_scores.loc[i, 'mcc'] = np.average(cv_scores['mcc'][:i])
     cv_scores.loc[i, 'roc_auc'] = np.average(cv_scores['roc_auc'][:i])

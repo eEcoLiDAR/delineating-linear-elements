@@ -115,8 +115,8 @@ def neighbourhood_features(points, point_neighbours, features, distances=None):
     if 'roughness' in features:
         roughness = np.zeros(n_points)
 
-    print " Computing structure tensors.."
-    for i in xrange(n_points):
+    print(" Computing structure tensors..")
+    for i in range(n_points):
         local_points = points[point_neighbours[i]]
 
         if len(local_points) > 3:
@@ -149,9 +149,9 @@ def neighbourhood_features(points, point_neighbours, features, distances=None):
                 normal_vectors[i, :] = [float('nan'), float('nan'), float('nan')]
             if 'roughness' in features:
                 roughness[i] = float('nan')
-    print " Done!"
+    print(" Done!")
 
-    print " Computing features.."
+    print(" Computing features..")
     if any(i in pca_features for i in features):
         sum_eigenvalues = np.sum(eigenvalues, axis=1)
         eigenvalues = (eigenvalues /
@@ -200,6 +200,6 @@ def neighbourhood_features(points, point_neighbours, features, distances=None):
             feature_values[:, i] = density
         else:
             raise ValueError('Inavailable features.')
-    print " Done!"
+    print(" Done!")
 
     return feature_values

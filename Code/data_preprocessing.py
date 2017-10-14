@@ -39,7 +39,7 @@ def las_to_csv(file_path, method='CloudCompare',
     out_filename = '%s.csv' % file_path_root
 
     if os.path.isfile(out_filename) and overwrite is False:
-        print 'CSV output file already exists.'
+        print('CSV output file already exists.')
     elif method == 'CloudCompare':
         subprocess.call([tool_path, '-SILENT', '-C_EXPORT_FMT', 'ASC',
                          '-PREC', '3', '-SEP', 'SEMICOLON', '-ADD_HEADER',
@@ -85,7 +85,7 @@ def downsample(file_path, distance, tool_path='CloudCompare',
                                     str(distance).replace('.', '_'), ext)
 
     if os.path.isfile(out_filename) and overwrite is False:
-        print 'Subsampled output file already exists.'
+        print('Subsampled output file already exists.')
     else:
         if ext.lower() == '.csv':
             subprocess.call([tool_path, '-SILENT', '-C_EXPORT_FMT', 'ASC',
